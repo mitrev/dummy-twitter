@@ -21,7 +21,7 @@ public class UserService {
         followerUser.addFollowedUser( followedUser );
     }
 
-    private User createUser( String login ) {
+    User createUser( String login ) {
         return userRepository.save( new User().withLogin( login ) );
     }
 

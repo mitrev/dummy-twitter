@@ -1,0 +1,5 @@
+CREATE TABLE user (
+  id            SERIAL       NOT NULL PRIMARY KEY,
+  login         VARCHAR(255) NOT NULL,
+  created_date  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

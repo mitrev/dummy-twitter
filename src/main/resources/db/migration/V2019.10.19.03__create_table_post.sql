@@ -1,0 +1,8 @@
+CREATE TABLE post (
+  id            SERIAL       NOT NULL PRIMARY KEY,
+  user_id       INT          NOT NULL,
+  message       VARCHAR(140) NOT NULL,
+  created_date  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE
+);

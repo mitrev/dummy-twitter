@@ -12,6 +12,6 @@ User is added after his first post.
 User can follow other users.
 User can see his own an his followers' posts.
 
-###Hints
+### Hints
 Swagger2 is added for testing purposes.
 http://localhost:9999/swagger-ui.html

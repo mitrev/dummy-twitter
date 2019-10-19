@@ -43,22 +43,25 @@ public class PostController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<PostDto> getPostFromUser( @PathVariable int id ) {
+    public ResponseEntity<PostDto> getPostById( @PathVariable int id ) {
         final Post post = postService.getPostById( id );
         return ResponseEntity.ok( new PostDto( post ) );
     }
 
-    @GetMapping("/self/{userLogin}/")
+    @GetMapping("/self/{userLogin}")
     @ResponseStatus(HttpStatus.OK)
     @SwaggerImplicitPageableParams
     public Page<PostDto> getPostFromUser( @PathVariable String userLogin, @ApiIgnore Pageable pageable ) {
-        return postService.getPostsFromUser( userLogin, pageable );
+        final Page<Post> postsFromUser = postService.getPostsFromUser( userLogin, pageable );
+        return postsFromUser.map( PostDto::new );
     }
 
-    @GetMapping("/followed/{userLogin}/")
+    @GetMapping("/followed/{userLogin}")
     @ResponseStatus(HttpStatus.OK)
     @SwaggerImplicitPageableParams
     public Page<PostDto> getPostsFromFollowedUsers( @PathVariable String userLogin, @ApiIgnore Pageable pageable ) {
-        return postService.getPostsFromFollowedUsers( userLogin, pageable );
+        final Page<Post> postsFromUser = postService.getPostsFromFollowedUsers( userLogin, pageable );
+        return postsFromUser.map( PostDto::new );
+
     }
 }

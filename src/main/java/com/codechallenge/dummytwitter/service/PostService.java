@@ -1,7 +1,6 @@
 package com.codechallenge.dummytwitter.service;
 
 import com.codechallenge.dummytwitter.dto.MessageDto;
-import com.codechallenge.dummytwitter.dto.PostDto;
 import com.codechallenge.dummytwitter.entity.Post;
 import com.codechallenge.dummytwitter.entity.User;
 import com.codechallenge.dummytwitter.exception.ResourceNotFoundException;
@@ -22,19 +21,15 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public Page<PostDto> getPostsFromFollowedUsers( String login, Pageable pageable ) {
+    public Page<Post> getPostsFromFollowedUsers( String login, Pageable pageable ) {
         final User user = userService.findByLogin( login );
-
-        final Page<Post> posts = postRepository.findAllByAuthorInOrderByCreatedDateDesc( user.getFollowedUsers(), pageable );
-        return posts.map( PostDto::new );
+        return postRepository.findAllByAuthorInOrderByCreatedDateDesc( user.getFollowedUsers(), pageable );
     }
 
     @Transactional(readOnly = true)
-    public Page<PostDto> getPostsFromUser( String login, Pageable pageable ) {
+    public Page<Post> getPostsFromUser( String login, Pageable pageable ) {
         final User user = userService.findByLogin( login );
-
-        final Page<Post> posts = postRepository.findAllByAuthorOrderByCreatedDateDesc( user, pageable );
-        return posts.map( PostDto::new );
+        return postRepository.findAllByAuthorOrderByCreatedDateDesc( user, pageable );
     }
 
     @Transactional
